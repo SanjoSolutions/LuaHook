@@ -1,39 +1,47 @@
-Hook = Hook or {}
-local addOnName, AddOn = ...
-local _ = {}
+local addOnName = ...
+local version = '1.0.0'
 
-Hook.Hook = {}
+if not Library.isRegistered(addOnName, version) then
+  --- @class Hook
+  local Hook = Hook or {}
 
-function Hook.Hook:new()
-  local hook = {
-    _callbacks = {}
-  }
-  setmetatable(hook, { __index = Hook.Hook })
-  return hook
-end
+  Library.register(addOnName, version, Hook)
+  local addOnName, AddOn = ...
+  local _ = {}
 
-function Hook.Hook:registerCallback(callback)
-  local object = {
-    callback = callback
-  }
-  table.insert(self._callbacks, object)
-  local hasCallbackBeenUnregistered = false
-  local handle = {
-    unregisterCallback = function ()
-      if not hasCallbackBeenUnregistered then
-        local index = Array.indexOf(self._callbacks, object)
-        if index ~= -1 then
-          table.remove(self._callbacks, index)
+  Hook.Hook = {}
+
+  function Hook.Hook:new()
+    local hook = {
+      _callbacks = {}
+    }
+    setmetatable(hook, { __index = Hook.Hook })
+    return hook
+  end
+
+  function Hook.Hook:registerCallback(callback)
+    local object = {
+      callback = callback
+    }
+    table.insert(self._callbacks, object)
+    local hasCallbackBeenUnregistered = false
+    local handle = {
+      unregisterCallback = function ()
+        if not hasCallbackBeenUnregistered then
+          local index = Array.indexOf(self._callbacks, object)
+          if index ~= -1 then
+            table.remove(self._callbacks, index)
+          end
+          hasCallbackBeenUnregistered = true
         end
-        hasCallbackBeenUnregistered = true
       end
-    end
-  }
-  return handle
-end
+    }
+    return handle
+  end
 
-function Hook.Hook:runCallbacks(...)
-  for _, object in ipairs(self._callbacks) do
-    object.callback(...)
+  function Hook.Hook:runCallbacks(...)
+    for _, object in ipairs(self._callbacks) do
+      object.callback(...)
+    end
   end
 end
