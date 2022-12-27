@@ -32,8 +32,17 @@ function Hook.Hook:registerCallback(callback)
   return handle
 end
 
+function Hook.Hook:registerCallbackForRunningOnce(callback)
+  local handle
+  handle = self:registerCallback(function (...)
+    handle:unregisterCallback()
+    callback(...)
+  end)
+end
+
 function Hook.Hook:runCallbacks(...)
-  for _, object in ipairs(self._callbacks) do
+  local callback = Array.copy(self._callbacks)
+  for _, object in ipairs(callback) do
     object.callback(...)
   end
 end
