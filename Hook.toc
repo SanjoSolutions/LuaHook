@@ -1,4 +1,4 @@
 ## Title: Hook
-## Interface: 100007
+## Interface: 100100
 
 Hook.lua
