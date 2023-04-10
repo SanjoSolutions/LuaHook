@@ -9,3 +9,5 @@ A library for providing hooks into functionality. This can help other add-on cre
   * **Hook.Hook:registerCallback**: a method for registering a callback.
   * **Hook.Hook:registerCallbackForRunningOnce**: a method for registering a callback that is only run once.
   * **Hook.Hook:runCallbacks**: a method for running all registered callbacks.
+
+You can support me on [Patreon](https://www.patreon.com/addons_by_sanjo).
