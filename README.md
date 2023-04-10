@@ -2,7 +2,7 @@
 
 A library for providing hooks into functionality. This can help other add-on creators to save some work.
 
-**Functions included:**
+**Things included:**
 
 * **Hook.Hook**: a class for a hook.
   * **Hook.Hook.new**: the constructor for the hook class.
